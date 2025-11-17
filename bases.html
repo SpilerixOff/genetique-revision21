@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Génétique – Les bases</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-title">GENETIC LAB</div>
+      <div class="brand-sub">Les bases</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Menu</a>
+      <a href="dominance.html">Suite ▶</a>
+    </div>
+  </nav>
+</header>
+<div class="layout">
+  <main>
+    <a href="index.html" class="back-link"><span>←</span>Retour au menu</a>
+    <section class="card">
+      <div class="card-header">
+        <h1>1. Les bases à connaître par cœur</h1>
+        <div class="card-tag">Chromosomes • Gènes • Allèles</div>
+      </div>
+
+      <div class="page-progress">
+        <span>Étape 1 sur 6</span>
+        <div class="page-dots">
+          <div class="page-dot active"></div>
+          <div class="page-dot"></div>
+          <div class="page-dot"></div>
+          <div class="page-dot"></div>
+          <div class="page-dot"></div>
+          <div class="page-dot"></div>
+        </div>
+      </div>
+
+      <p>
+        Lis chaque carte, puis le résumé schéma. À la fin, essaie de répondre aux mini questions
+        sans regarder la correction.
+      </p>
+
+      <div class="simple-grid">
+        <article class="mini-card">
+          <div class="mini-title">
+            <span>Chromosomes</span><span>“boîtes” d’ADN</span>
+          </div>
+          <ul>
+            <li>Chaque cellule du corps (sauf les gamètes) contient <strong>46 chromosomes</strong>.</li>
+            <li>Ils sont rangés en <strong>23 paires</strong>.</li>
+            <li>La 23<sup>e</sup> paire = <strong>XX</strong> (fille) ou <strong>XY</strong> (garçon).</li>
+          </ul>
+        </article>
+
+        <article class="mini-card">
+          <div class="mini-title">
+            <span>Gène</span><span>info précise</span>
+          </div>
+          <ul>
+            <li>Un gène est un <strong>petit morceau de chromosome</strong>.</li>
+            <li>Il donne une info : couleur des yeux, type de cheveux, groupe sanguin…</li>
+          </ul>
+        </article>
+
+        <article class="mini-card">
+          <div class="mini-title">
+            <span>Allèles</span><span>versions</span>
+          </div>
+          <ul>
+            <li>Ce sont les <strong>différentes versions</strong> d’un même gène.</li>
+            <li>Ex : pour la couleur des yeux : B = brun, b = bleu.</li>
+          </ul>
+        </article>
+
+        <article class="mini-card">
+          <div class="mini-title">
+            <span>Génotype / Phénotype</span><span>lettres / aspect</span>
+          </div>
+          <ul>
+            <li><strong>Génotype</strong> : les lettres (BB, Bb, bb).</li>
+            <li><strong>Phénotype</strong> : ce qu’on voit (yeux bruns ou bleus).</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="schema">
+        📌 Résumé schéma : <br>
+        <strong>Chromosome</strong> ⟶ contient des <strong>gènes</strong> ⟶ chaque gène existe en plusieurs <strong>allèles</strong>.
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-title">Mini questions de compréhension</div>
+
+        <div class="question-card">
+          <div class="question">1) Combien y a-t-il de chromosomes dans une cellule du corps humain ?</div>
+          <button class="btn-reponse"><span>👁️</span>Afficher la réponse</button>
+          <div class="reponse">
+            46 chromosomes, soit 23 paires.
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question">2) Donne un exemple d’information portée par un gène.</div>
+          <button class="btn-reponse"><span>👁️</span>Afficher la réponse</button>
+          <div class="reponse">
+            Par exemple : la couleur des yeux, le groupe sanguin, la couleur des cheveux…
+          </div>
+        </div>
+      </div>
+
+      <div class="game-block">
+        <div class="game-title">Mini-jeu : retrouve le bon mot</div>
+        <p>Choisis le bon terme pour compléter la phrase :</p>
+        <p style="margin-top:.25rem;font-size:.85rem;">
+          « Différentes versions d’un même gène : ce sont des … »
+        </p>
+        <div class="game-options">
+          <button class="game-btn" data-correct="false">Chromosomes</button>
+          <button class="game-btn" data-correct="true">Allèles</button>
+          <button class="game-btn" data-correct="false">Phénotypes</button>
+        </div>
+        <div class="game-feedback"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+// Q/R
+document.querySelectorAll('.btn-reponse').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const rep = btn.nextElementSibling;
+    const open = rep.classList.contains('show');
+    document.querySelectorAll('.reponse').forEach(r=>r.classList.remove('show'));
+    document.querySelectorAll('.btn-reponse').forEach(b=>b.innerHTML='<span>👁️</span>Afficher la réponse');
+    if(!open){
+      rep.classList.add('show');
+      btn.innerHTML='<span>🙈</span>Cacher la réponse';
+    }
+  });
+});
+
+// Mini-jeu
+const gameBtns = document.querySelectorAll('.game-btn');
+const feedback = document.querySelector('.game-feedback');
+gameBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    gameBtns.forEach(b=>b.classList.remove('correct','wrong'));
+    const correct = btn.dataset.correct === 'true';
+    if(correct){
+      btn.classList.add('correct');
+      feedback.textContent = "✔ Exact : ce sont des allèles.";
+    }else{
+      btn.classList.add('wrong');
+      feedback.textContent = "❌ Non. Réfléchis : chromosomes ? gène ? allèles ?";
+    }
+  });
+});
+</script>
+</body>
+</html>

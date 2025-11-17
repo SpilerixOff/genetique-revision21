@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Génétique – Groupes sanguins</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-title">GENETIC LAB</div>
+      <div class="brand-sub">Groupes sanguins</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Menu</a>
+      <a href="croisements.html">◀ Croisements</a>
+      <a href="xlie.html">X / couleurs ▶</a>
+    </div>
+  </nav>
+</header>
+<div class="layout">
+  <main>
+    <a href="index.html" class="back-link"><span>←</span>Retour au menu</a>
+    <section class="card">
+      <div class="card-header">
+        <h1>4. Groupes sanguins ABO et Rh</h1>
+        <div class="card-tag">Questions fréquentes en contrôle</div>
+      </div>
+
+      <div class="page-progress">
+        <span>Étape 4 sur 6</span>
+        <div class="page-dots">
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot"></div>
+          <div class="page-dot"></div>
+        </div>
+      </div>
+
+      <p>
+        On regarde d’abord le système <strong>ABO</strong> (A, B, AB, O), puis le facteur
+        <strong>Rhésus</strong> (+ ou −).
+      </p>
+
+      <h2 style="font-size:1.02rem;margin-top:.5rem;">Système ABO</h2>
+      <p style="font-size:.9rem;color:var(--muted);margin-top:.15rem;">
+        3 allèles possibles : A, B et O. Les allèles A et B sont dominants sur O.
+      </p>
+
+      <table>
+        <tr><th>Groupe</th><th>Génotype(s)</th><th>Antigène(s)</th><th>Anticorps</th></tr>
+        <tr><td>A</td><td>AA ou AO</td><td>A</td><td>Anti-B</td></tr>
+        <tr><td>B</td><td>BB ou BO</td><td>B</td><td>Anti-A</td></tr>
+        <tr><td>AB</td><td>AB</td><td>A et B</td><td>Aucun</td></tr>
+        <tr><td>O</td><td>OO</td><td>Aucun</td><td>Anti-A et Anti-B</td></tr>
+      </table>
+
+      <div class="schema">
+        📌 À retenir : <br>
+        O = génotype OO • AB = AB • A = AA ou AO • B = BB ou BO.
+      </div>
+
+      <h2 style="font-size:1.02rem;margin-top:.7rem;">Facteur Rhésus</h2>
+      <div class="simple-grid" style="margin-top:.35rem;">
+        <article class="mini-card">
+          <div class="mini-title">
+            <span>Rh+</span><span>dominant</span>
+          </div>
+          <ul>
+            <li>Allèle noté R (dominant).</li>
+            <li>RR ou Rr → Rh+.</li>
+          </ul>
+        </article>
+        <article class="mini-card">
+          <div class="mini-title">
+            <span>Rh−</span><span>récessif</span>
+          </div>
+          <ul>
+            <li>Allèle noté r (récessif).</li>
+            <li>rr → Rh−.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-title">Mini questions</div>
+
+        <div class="question-card">
+          <div class="question">
+            1) Un père AO (groupe A) et une mère BO (groupe B) peuvent-ils avoir un enfant de groupe O ?
+          </div>
+          <button class="btn-reponse"><span>👁️</span>Afficher la réponse</button>
+          <div class="reponse">
+            Oui. Croisement AO × BO → possibilité OO, donc groupe O (environ 25&nbsp;%).
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question">
+            2) Un individu de groupe O a quel génotype ?
+          </div>
+          <button class="btn-reponse"><span>👁️</span>Afficher la réponse</button>
+          <div class="reponse">
+            Il est OO (deux allèles O).
+          </div>
+        </div>
+      </div>
+
+      <div class="game-block">
+        <div class="game-title">Mini-jeu : groupe sanguin</div>
+        <p>Quel groupe sanguin correspond au génotype AB ?</p>
+        <div class="game-options">
+          <button class="game-btn" data-correct="false">A</button>
+          <button class="game-btn" data-correct="false">B</button>
+          <button class="game-btn" data-correct="true">AB</button>
+          <button class="game-btn" data-correct="false">O</button>
+        </div>
+        <div class="game-feedback"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+// Q/R
+document.querySelectorAll('.btn-reponse').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const rep = btn.nextElementSibling;
+    const open = rep.classList.contains('show');
+    document.querySelectorAll('.reponse').forEach(r=>r.classList.remove('show'));
+    document.querySelectorAll('.btn-reponse').forEach(b=>b.innerHTML='<span>👁️</span>Afficher la réponse');
+    if(!open){
+      rep.classList.add('show');
+      btn.innerHTML='<span>🙈</span>Cacher la réponse';
+    }
+  });
+});
+// Mini-jeu
+const gameBtns = document.querySelectorAll('.game-btn');
+const feedback = document.querySelector('.game-feedback');
+gameBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    gameBtns.forEach(b=>b.classList.remove('correct','wrong'));
+    const correct = btn.dataset.correct === 'true';
+    if(correct){
+      btn.classList.add('correct');
+      feedback.textContent = "✔ AB → groupe sanguin AB.";
+    }else{
+      btn.classList.add('wrong');
+      feedback.textContent = "❌ Regarde le tableau : qui a les deux antigènes A et B ?";
+    }
+  });
+});
+</script>
+</body>
+</html>

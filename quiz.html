@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Génétique – QCM final</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-title">GENETIC LAB</div>
+      <div class="brand-sub">QCM final</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Menu</a>
+      <a href="xlie.html">◀ Gènes sur le X</a>
+    </div>
+  </nav>
+</header>
+<div class="layout">
+  <main>
+    <a href="index.html" class="back-link"><span>←</span>Retour au menu</a>
+    <section class="card">
+      <div class="card-header">
+        <h1>6. QCM – es-tu prêt(e) pour le contrôle ?</h1>
+        <div class="card-tag">8 questions, corrigé en direct</div>
+      </div>
+
+      <div class="page-progress">
+        <span>Étape 6 sur 6</span>
+        <div class="page-dots">
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+          <div class="page-dot active"></div>
+        </div>
+      </div>
+
+      <p>
+        Réponds aux 8 questions ci-dessous. Ensuite clique sur <strong>Voir mon score</strong>.
+        Les bonnes réponses passent en vert, les mauvaises en rouge.
+      </p>
+
+      <div id="quiz-list"></div>
+
+      <div class="quiz-footer">
+        <div id="quiz-score-text">Score : 0 / 0</div>
+        <button class="btn-quiz" id="btn-score">Voir mon score</button>
+      </div>
+      <p class="footer-note">
+        👉 Si tu arrives à <strong>7/8 ou 8/8 plusieurs fois</strong>, tu es bien préparé(e) pour ton contrôle.
+      </p>
+    </section>
+  </main>
+</div>
+
+<script>
+const quizData = [
+  {q:"1) Combien de chromosomes contient une cellule du corps humain ?",options:["23","46","22","2"],correct:1},
+  {q:"2) Quel génotype est homozygote récessif ?",options:["BB","Bb","bb","bB"],correct:2},
+  {q:"3) Avec B dominant, b récessif, quel génotype donne des yeux bleus ?",options:["BB","Bb","bb","BB ou Bb"],correct:2},
+  {q:"4) Quel groupe sanguin correspond au génotype OO ?",options:["A","B","AB","O"],correct:3},
+  {q:"5) Comment note-t-on un garçon daltonien ?",options:["XDXD","XdXd","XdY","XDY"],correct:2},
+  {q:"6) Dans un croisement Bb × Bb, quelle proportion moyenne d’enfants bb ?",options:["0 %","25 %","50 %","75 %"],correct:1},
+  {q:"7) Pour être Rh−, il faut le génotype :",options:["RR","Rr","rr","Rr ou rr"],correct:2},
+  {q:"8) L’albinisme (manque de mélanine) est lié à un gène :",options:["dominant","récessif","lié au Y","codominant"],correct:1}
+];
+
+const quizList = document.getElementById('quiz-list');
+
+quizData.forEach((item,qi)=>{
+  const box = document.createElement('div');
+  box.className = 'quiz-question';
+
+  const q = document.createElement('div');
+  q.className = 'quiz-q';
+  q.textContent = item.q;
+  box.appendChild(q);
+
+  const opts = document.createElement('div');
+  opts.className = 'quiz-options';
+
+  item.options.forEach((opt,oi)=>{
+    const o = document.createElement('div');
+    o.className = 'quiz-option';
+    o.dataset.question = qi;
+    o.dataset.index = oi;
+    o.innerHTML = `<span>${opt}</span>`;
+    o.addEventListener('click',()=>{
+      opts.querySelectorAll('.quiz-option').forEach(el=>el.classList.remove('selected','correct','wrong'));
+      o.classList.add('selected');
+    });
+    opts.appendChild(o);
+  });
+
+  box.appendChild(opts);
+  quizList.appendChild(box);
+});
+
+const btnScore = document.getElementById('btn-score');
+const scoreText = document.getElementById('quiz-score-text');
+
+btnScore.addEventListener('click',()=>{
+  let score = 0;
+  const total = quizData.length;
+
+  document.querySelectorAll('.quiz-option').forEach(o=>{
+    o.classList.remove('correct','wrong');
+  });
+
+  quizData.forEach((item,qi)=>{
+    const options = document.querySelectorAll('.quiz-option[data-question="'+qi+'"]');
+    let selected = -1;
+    options.forEach(o=>{
+      if(o.classList.contains('selected')) selected = parseInt(o.dataset.index);
+    });
+    options.forEach((o,oi)=>{
+      if(oi === item.correct) o.classList.add('correct');
+      else if(oi === selected && oi !== item.correct) o.classList.add('wrong');
+    });
+    if(selected === item.correct) score++;
+  });
+
+  let cls = 'score';
+  const ratio = score/total;
+  if(ratio >= 0.75) cls += ' good';
+  else if(ratio <= 0.4) cls += ' bad';
+  scoreText.innerHTML = 'Score : <span class="'+cls+'">'+score+' / '+total+'</span>';
+});
+</script>
+</body>
+</html>
